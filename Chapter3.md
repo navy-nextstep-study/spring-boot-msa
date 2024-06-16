@@ -3,7 +3,47 @@
 - 커스텀 애너테이션을 적극적으로 활용하여 개발한 사례가 있는지
 
 ### 이슬
-- 
+- @Bean 어노테이션을 사용할 때, 의존성 주입 방법으로 (1) 생성자 인자로 스프링 빈을 주입 (2) 메서드 참조 방식이 있다. 두 가지 방법에 대해 사용하는 기준이 있는지?
+```java
+@Configuration
+public class DataSourceConfiguration {
+	@Bean
+	@Primary
+	@ConfigurationProperties("spring.datasource.jpa")
+	public DataSourceProperties dataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
+	@Bean
+	@Primary
+	public DataSource dataSource(DataSourceProperties dataSourceProperties) { // (1) 생성자 인자로 스프링 빈을 주입
+		return dataSourceProperties
+			.initializeDataSourceBuilder()
+			.type(HikariDataSource.class)
+			.build();
+	}
+
+	@Bean
+	@ConfigurationProperties("spring.datasource.lock")
+	public DataSourceProperties lockDataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
+	@Bean
+	public DataSource lockDataSource() {
+		return lockDataSourceProperties() // (2) 메서드 참조 방식
+			.initializeDataSourceBuilder()
+			.type(HikariDataSource.class)
+			.build();
+	}
+
+	@Bean
+	public VoteLockDao voteLockDao(@Qualifier("lockDataSource") DataSource dataSource) {
+		return new VoteLockDao(dataSource);
+	}
+}
+```
+- 빈 스코프를 싱글톤 말고 다른 걸 사용해본 적 있는지?
 
 ### 창현
 - @Bean과 @Component를 사용하는 자기만의 특별한 기준이 있는지?
