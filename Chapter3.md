@@ -11,6 +11,7 @@
 
 ## 실습문제
 ```java
+@Configuration
 public class AppConfig {
 
 	@Bean
