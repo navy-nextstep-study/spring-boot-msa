@@ -1,7 +1,7 @@
 ## 질문
 ### 근우
 - MockMVC 테스트는 의미가 있을까? 
-- Controller 테스트는 보통 Service 코드를 Mocking 해서 처리하는데, 비지니스 로직이 없는 Controller 를 테스트할게 뭐가 있을까
+-- Controller 테스트는 보통 Service 코드를 Mocking 해서 처리하는데, 비지니스 로직이 없는 Controller 를 테스트할게 뭐가 있을까
 
 ### 이슬
 
