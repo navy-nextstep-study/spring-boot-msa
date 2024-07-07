@@ -15,7 +15,10 @@
 
 [기존 코드](https://github.com/Hchanghyeon/programming-learn/tree/main/lock-pessimistic-jpa/src/main/java/com/lock/lockpessimisticjpa)를 참고, 복붙하고 BlockingQueue와 별도의 WorkerThread를 활용하여 기존 코드를 수정하여 동시성을 제어해보자.
 
-구현 방법에 정답은 없으며 BlockingQueue를 활용해서 Application Level에서 동시성을 제어하는 것을 목적으로 둔다.
+- 구현 방법에 정답은 없으며 BlockingQueue를 활용해서 Application Level에서 동시성을 제어하는 것을 목적으로 둔다.
+- BlockingQueue의 구현체는 ArrayBlockingQueue로 하며, Queue의 Capacity는 1000으로 설정한다.
+- BlockingQueue에 데이터가 꽉 찼을 때 대기하도록 구현한다.
+- 동시성 테스트는 Jmeter를 이용하여 한 번에 1000명으로 가정하고 실행한다.
 
 
 #### Product(상품) 생성 API
