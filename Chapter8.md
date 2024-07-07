@@ -16,3 +16,33 @@
 [기존 코드](https://github.com/Hchanghyeon/programming-learn/tree/main/lock-pessimistic-jpa/src/main/java/com/lock/lockpessimisticjpa)를 참고, 복붙하고 BlockingQueue와 별도의 WorkerThread를 활용하여 기존 코드를 수정하여 동시성을 제어해보자.
 
 구현 방법에 정답은 없으며 BlockingQueue를 활용해서 Application Level에서 동시성을 제어하는 것을 목적으로 둔다.
+
+
+#### Product(상품) 생성 API
+주소
+```
+http://localhost:8080/products
+```
+
+RequestBody
+```json
+{
+    "name" : "ball",
+    "quantity" : 2000
+}
+```
+
+#### Order(주문) 생성 API
+주소
+```
+http://localhost:8080/orders
+```
+
+RequestBody
+```json
+{
+    "itemId" : 1
+}
+```
+
+**상품 생성 후 Jmeter를 활용하여 주문 생성 API 1000번 요청 후 Lock 기법과 BlockingQueue 기법의 성능 차이를 알아보자**
