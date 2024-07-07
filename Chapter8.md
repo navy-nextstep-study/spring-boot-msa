@@ -9,3 +9,10 @@
 - 프로젝트시 OSIV를 끄는 편인지, 키는 편인지
 
 ## 실습문제
+모놀리식 구조로 된 서버에서 Order(주문) 도메인과 Product(상품) 도메인이 존재한다. 클라이언트가 주문을 하면 상품의 수량이 -1씩 감소하는 구조로 설계되어있으며, 하나의 주문에는 하나의 상품만 포함된다. 해당 서버에서는 상품과 관련된 이벤트가 자주 열려 주문 로직에 포함되는 상품의 수량 감소 로직은 JPA의 PessimisticLock을 이용하여 동시성을 제어하고있다. 
+
+개발팀은 PessimisticLock을 사용하여 처리하는 것이 과연 성능이 좋을까 고민하게 되었고, 여러가지 방법을 시도해보고자 Queue를 활용하여 구현해서 성능을 비교해보기로 했다.
+
+[기존 코드](https://github.com/Hchanghyeon/programming-learn/tree/main/lock-pessimistic-jpa/src/main/java/com/lock/lockpessimisticjpa)를 참고, 복붙하고 BlockingQueue와 별도의 WorkerThread를 활용하여 기존 코드를 수정하여 동시성을 제어해보자.
+
+구현 방법에 정답은 없으며 BlockingQueue를 활용해서 Application Level에서 동시성을 제어하는 것을 목적으로 둔다.
